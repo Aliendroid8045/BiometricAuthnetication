@@ -12,6 +12,14 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.example.jetpackkotlin.ui.utility.Constants.INIT_BIO_ENCRYPT
+import com.example.jetpackkotlin.ui.utility.Constants.IS_BIO_CHANGED
+import com.example.jetpackkotlin.ui.utility.Constants.IS_BIO_ENROLLED
+import com.example.jetpackkotlin.ui.utility.Constants.KEY_NAME
+import com.example.jetpackkotlin.ui.utility.Constants.PREFERENCE_NAME
+import com.example.jetpackkotlin.ui.utility.Constants.TYPE_OF_BIO
+import com.example.jetpackkotlin.ui.utility.Constants.FACE_AVAILABLE
+import com.example.jetpackkotlin.ui.utility.Constants.FINGERPRINT_AVAILABLE
 import java.security.InvalidKeyException
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -24,15 +32,8 @@ object BiometricUtility {
 
     private lateinit var mBiometricPrompt: BiometricPrompt
     private lateinit var mBiometricPromptInfo: BiometricPrompt.PromptInfo
-    private const val PREFERENCE_NAME: String = "ANDROIDX_BIOMETRIC"
-    private const val faceAvailable = "BIOMETRIC_FACE_AVAILABLE"
-    const val TYPE_OF_BIO = "BIOMETRIC_FACE_AVAILABLE"
-    private const val fingerPrintAvailable = "BIOMETRIC_FINGERPRINT_AVAILABLE"
-    const val INIT_BIO_ENCRYPT = "INIT_BIOMETRIC_ENCRYPT_CIPHER"
-    const val IS_BIO_ENROLLED = "IS_BIOMETRIC_ENROLLED"
-    const val IS_BIO_CHANGED = "IS_BIOMETRIC_CHANGED"
+
     private lateinit var keyStore: KeyStore
-    const val KEY_NAME: String = "ANDROIDXBIO"
 
 
     fun storeBooleanPreference(context: Context, key: String, value: Boolean) {
@@ -65,12 +66,12 @@ object BiometricUtility {
     fun setBiometrictype(context: Context) {
         if (!isBiometricHardwareAvailable(context)) return
         if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_FACE)) {
-            storeBooleanPreference(context, faceAvailable, true)
+            storeBooleanPreference(context, FACE_AVAILABLE, true)
             storeStringPreference(context, TYPE_OF_BIO, "Face recognition")
         }
 
         if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-            storeBooleanPreference(context, fingerPrintAvailable, true)
+            storeBooleanPreference(context, FINGERPRINT_AVAILABLE, true)
             storeStringPreference(context, TYPE_OF_BIO, "Fingerprint ")
         }
 
