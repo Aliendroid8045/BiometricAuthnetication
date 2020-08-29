@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JetPackKotlin</string>
+    <string name="app_name">BiometricLogin</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -7,4 +7,7 @@
     <string name="biometric_use_instruction">This app is a demo of biometric authentication using BiometricPrompt API in android. This app support face recognition,
         fingerprint authentication.</string>
     <string name="biometric_change_instruction">App also detect a biometric change as well, when you change your biometric in device and relaunch this app, we detect this biometric change and display alert.</string>
+    <string name="sign_in_using_biometric">Sign in</string>
+    <string name="register_your_biometric">Enroll in biometric</string>
+    <string name="disable_your_biometric">Disable biometric</string>
 </resources>

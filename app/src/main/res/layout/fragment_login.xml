@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#81d4fa"
+    android:background="@android:color/holo_green_dark"
     tools:context="com.examle.biometriclogin.ui.RegisterBiometricFragment">
 
 
@@ -48,9 +48,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp80"
         android:gravity="bottom"
         android:orientation="vertical"
         android:weightSum="1"
@@ -62,30 +62,29 @@
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
             android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:text="Sign in using biometric"
+            android:background="@drawable/button_state"
+            android:text="@string/sign_in_using_biometric"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_register_biometric"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp10"
             android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:text="Register your biometric"
+            android:background="@drawable/button_state"
+            android:text="@string/register_your_biometric"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/btn_disable_biometric"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp10"
             android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:text="Disable your biometric"
+            android:background="@drawable/button_state"
+            android:text="@string/disable_your_biometric"
             android:textAllCaps="false" />
 
 

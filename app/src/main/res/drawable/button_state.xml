@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/button_color_selector" />
+    <corners android:radius="@dimen/dp10" />
+    <padding
+        android:bottom="@dimen/dp5"
+        android:left="@dimen/dp5"
+        android:right="@dimen/dp5"
+        android:top="@dimen/dp5" />
+</shape>

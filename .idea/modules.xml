@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/JetPackKotlin.iml" filepath="$PROJECT_DIR$/JetPackKotlin.iml" group="JetPackKotlin" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="JetPackKotlin/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BiometricLogin.iml" filepath="$PROJECT_DIR$/.idea/modules/BiometricLogin.iml" group="BiometricLogin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="BiometricLogin/app" />
     </modules>
   </component>
 </project>
