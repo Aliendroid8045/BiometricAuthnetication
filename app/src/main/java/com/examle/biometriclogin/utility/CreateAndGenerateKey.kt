@@ -20,7 +20,6 @@ class CreateAndGenerateKey {
     private var keyStore: KeyStore? = null
     private var cipher: Cipher? = null
 
-
     fun createKeyAndEncryptPinForBiometric(activity: Activity) {
 
         getKeyStore()
@@ -30,7 +29,6 @@ class CreateAndGenerateKey {
         initCryptObject()
     }
 
-
     private fun createNewKey() {
         keyStore?.deleteEntry(KEY_NAME)
         val keyGenParameterSpec = getKeyGenParameter()
@@ -38,7 +36,6 @@ class CreateAndGenerateKey {
             KeyGenerator.getInstance(KEY_ALGORITHM_AES, "AndroidKeyStore")
         keyGenerator.init(keyGenParameterSpec)
         keyGenerator.generateKey()
-
     }
 
     private fun getKeyGenParameter(): KeyGenParameterSpec {
@@ -53,7 +50,6 @@ class CreateAndGenerateKey {
     private fun getKeyStore() {
         keyStore = KeyStore.getInstance("AndroidKeyStore")
         keyStore?.load(null)
-
     }
 
     private fun getCipher(): Cipher? {
@@ -66,7 +62,6 @@ class CreateAndGenerateKey {
         return cipher
     }
 
-
     private fun initCipher(activity: Activity) {
 
         keyStore?.load(null)
@@ -76,7 +71,7 @@ class CreateAndGenerateKey {
 
         BiometricUtility.storeStringPreference(
             activity, INIT_BIO_ENCRYPT,
-            Base64.encodeToString(cipher?.getIV(), NO_WRAP)
+            Base64.encodeToString(cipher?.iv, NO_WRAP)
         )
     }
 
@@ -85,7 +80,7 @@ class CreateAndGenerateKey {
     }
 
     fun generateBioPrompt(activity: FragmentActivity) {
-        val biometricType = BiometricUtility.loadStringValue(activity, TYPE_OF_BIO)
+        val biometricType = BiometricUtility.loadStringPreference(activity, TYPE_OF_BIO)
         val biometricPromptHelper = BiometricPromptPresenter()
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("$biometricType authentication for AndroidX")

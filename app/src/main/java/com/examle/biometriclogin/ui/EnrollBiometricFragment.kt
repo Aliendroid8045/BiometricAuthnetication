@@ -13,14 +13,14 @@ import com.example.biometriclogin.R
 import com.examle.biometriclogin.communication.OnButtonSelection
 import com.examle.biometriclogin.utility.Constants.TYPE_OF_BIO
 
-class RegisterBiometricFragment : Fragment() {
+class EnrollBiometricFragment : Fragment() {
 
     private lateinit var listener: OnButtonSelection
 
     companion object {
 
-        fun newInstance(): RegisterBiometricFragment {
-            return RegisterBiometricFragment()
+        fun newInstance(): EnrollBiometricFragment {
+            return EnrollBiometricFragment()
         }
     }
 

@@ -7,18 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-
-import com.example.biometriclogin.R
 import com.examle.biometriclogin.communication.OnButtonSelection
+import com.example.biometriclogin.R
 
-class LoginFragment : Fragment() {
+
+class HomeFragment : Fragment() {
     private lateinit var listener: OnButtonSelection
-
 
     companion object {
 
-        fun newInstance(): LoginFragment {
-            return LoginFragment()
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
+
         }
     }
 
@@ -37,16 +37,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-        view.findViewById<Button>(R.id.btn_sign_in)
-            .setOnClickListener { listener.onClick("SignIn") }
-        view.findViewById<Button>(R.id.btn_register_biometric)
-            .setOnClickListener { listener.onClick("RegisterBio") }
-        view.findViewById<Button>(R.id.btn_disable_biometric)
-            .setOnClickListener { listener.onClick("DisableBio") }
+        // Inflate the layout for this fragment
 
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        view.findViewById<Button>(R.id.logout)
+            .setOnClickListener { listener.onClick("logout") }
         return view
     }
-
 }
-

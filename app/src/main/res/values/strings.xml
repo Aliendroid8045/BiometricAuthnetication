@@ -10,4 +10,8 @@
     <string name="sign_in_using_biometric">Sign in</string>
     <string name="register_your_biometric">Enroll in biometric</string>
     <string name="disable_your_biometric">Disable biometric</string>
+    <string name="success_message">Successfully login with your biometric</string>
+    <string name="logout">Logout</string>
+    <string name="harware_not_support">Hardware is not available</string>
+    <string name="phone_not_support_biometric">Your device does not have biometric support.</string>
 </resources>

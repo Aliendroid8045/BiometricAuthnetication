@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
-    tools:context="com.examle.biometriclogin.ui.RegisterBiometricFragment">
-
+    android:background="@color/main_color"
+    tools:context="com.examle.biometriclogin.ui.EnrollBiometricFragment">
 
     <TextView
         android:id="@+id/title"
         style="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/biometric_prompt"
         android:textAlignment="center"
         android:textStyle="bold"

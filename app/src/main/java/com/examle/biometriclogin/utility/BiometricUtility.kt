@@ -12,6 +12,7 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.examle.biometriclogin.communication.OnButtonSelection
 import com.examle.biometriclogin.utility.Constants.INIT_BIO_ENCRYPT
 import com.examle.biometriclogin.utility.Constants.IS_BIO_CHANGED
 import com.examle.biometriclogin.utility.Constants.IS_BIO_ENROLLED
@@ -20,6 +21,7 @@ import com.examle.biometriclogin.utility.Constants.PREFERENCE_NAME
 import com.examle.biometriclogin.utility.Constants.TYPE_OF_BIO
 import com.examle.biometriclogin.utility.Constants.FACE_AVAILABLE
 import com.examle.biometriclogin.utility.Constants.FINGERPRINT_AVAILABLE
+import com.example.biometriclogin.R
 import java.security.InvalidKeyException
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -29,11 +31,10 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
 object BiometricUtility {
-
     private lateinit var mBiometricPrompt: BiometricPrompt
     private lateinit var mBiometricPromptInfo: BiometricPrompt.PromptInfo
-
     private lateinit var keyStore: KeyStore
+    private lateinit var listener: OnButtonSelection
 
 
     fun storeBooleanPreference(context: Context, key: String, value: Boolean) {
@@ -52,19 +53,17 @@ object BiometricUtility {
 
     }
 
-    fun loadBooleanValue(context: Context, key: String): Boolean {
+    fun loadBooleanPreference(context: Context, key: String): Boolean {
         val preference = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         return preference.getBoolean(key, false)
     }
 
-    fun loadStringValue(context: Context, key: String): String? {
+    fun loadStringPreference(context: Context, key: String): String? {
         val preference = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         return preference.getString(key, "")
     }
 
-
-    fun setBiometrictype(context: Context) {
-        if (!isBiometricHardwareAvailable(context)) return
+    fun setBiometricType(context: Context) {
         if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_FACE)) {
             storeBooleanPreference(context, FACE_AVAILABLE, true)
             storeStringPreference(context, TYPE_OF_BIO, "Face recognition")
@@ -74,10 +73,18 @@ object BiometricUtility {
             storeBooleanPreference(context, FINGERPRINT_AVAILABLE, true)
             storeStringPreference(context, TYPE_OF_BIO, "Fingerprint ")
         }
-
     }
 
-    private fun isBiometricHardwareAvailable(context: Context): Boolean {
+     fun displayHardwareNotSupportError(context: Context) {
+        val alert = DisplayAlert()
+        alert.displayTwoButtonDialog(
+            context,
+            context.getString(R.string.harware_not_support),
+            context.getString(R.string.phone_not_support_biometric)
+        )
+    }
+
+     fun isBiometricHardwareAvailable(context: Context): Boolean {
         val biometricManager = BiometricManager.from(context)
         when (biometricManager.canAuthenticate()) {
             BiometricManager.BIOMETRIC_SUCCESS -> return true
@@ -88,15 +95,13 @@ object BiometricUtility {
         return false
     }
 
-    fun getBioType(fragmentActivity: FragmentActivity): String? {
-        val bioType = loadStringValue(fragmentActivity, TYPE_OF_BIO)
-        return bioType
+    private fun getBioType(fragmentActivity: FragmentActivity): String? {
+        return loadStringPreference(fragmentActivity, TYPE_OF_BIO)
     }
 
     fun displayBiometricPromptForAuthentication(activity: FragmentActivity) {
-        if (loadBooleanValue(activity, IS_BIO_ENROLLED)) {
-            val bioType = loadStringValue(activity, TYPE_OF_BIO)
-
+        if (loadBooleanPreference(activity, IS_BIO_ENROLLED)) {
+            val bioType = loadStringPreference(activity, TYPE_OF_BIO)
             val alert = DisplayAlert()
             alert.displayTwoButtonDialog(
                 activity,
@@ -105,13 +110,12 @@ object BiometricUtility {
             )
             return
         }
-
         invokeAsyncTask(activity)
-
     }
 
     fun displayPromptForAuthentication(activity: FragmentActivity) {
         val mExecutor = ContextCompat.getMainExecutor(activity)
+        if (activity is OnButtonSelection) listener = activity
         mBiometricPrompt =
             BiometricPrompt(activity, mExecutor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
@@ -122,19 +126,18 @@ object BiometricUtility {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
                     Log.d("AUTH", "onAuthenticationSucceeded")
-
+                    listener.onClick("navigateHomeScreen")
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
                     Log.d("AUTH", "onAuthenticationFailed ")
-
                 }
 
             })
         generateSecretKey()
-        val SecretKey = getSecretKey()
-        if (retrieveSecretKey(activity, SecretKey)) {
+        val secretKey = getSecretKey()
+        if (retrieveSecretKey(activity, secretKey)) {
             mBiometricPromptInfo =
                 BiometricPrompt.PromptInfo.Builder()
                     .setTitle("${getBioType(activity)} authentication for AndroidX")
@@ -147,7 +150,7 @@ object BiometricUtility {
     }
 
     private fun retrieveSecretKey(activity: FragmentActivity, secretKey: SecretKey?): Boolean {
-        val iv = Base64.decode(loadStringValue(activity, INIT_BIO_ENCRYPT), Base64.NO_WRAP)
+        val iv = Base64.decode(loadStringPreference(activity, INIT_BIO_ENCRYPT), Base64.NO_WRAP)
         val ivParameterSpec = IvParameterSpec(iv)
         try {
             getCipher()?.init(DECRYPT_MODE, secretKey, ivParameterSpec)
@@ -217,16 +220,16 @@ object BiometricUtility {
         async.execute(null, null, null)
     }
 
-    class BiometricRegistrationAsync(val activity: FragmentActivity) :
+    class BiometricRegistrationAsync(private val activity: FragmentActivity) :
         AsyncTask<Void, Void, Void>() {
-        val genratePrompt = CreateAndGenerateKey()
+        private val generatePrompt = CreateAndGenerateKey()
         override fun doInBackground(vararg params: Void?): Void? {
-            genratePrompt.createKeyAndEncryptPinForBiometric(activity)
+            generatePrompt.createKeyAndEncryptPinForBiometric(activity)
             return null
         }
 
         override fun onPostExecute(result: Void?) {
-            genratePrompt.generateBioPrompt(activity)
+            generatePrompt.generateBioPrompt(activity)
         }
     }
 }

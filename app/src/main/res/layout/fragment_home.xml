@@ -1,0 +1,35 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context="com.examle.biometriclogin.ui.HomeFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp80"
+        android:layout_margin="@dimen/dp10"
+        android:background="@drawable/button_state"
+        android:gravity="center"
+        android:text="@string/success_message"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp80"
+        android:background="@drawable/button_state"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

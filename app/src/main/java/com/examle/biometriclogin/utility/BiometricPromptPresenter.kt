@@ -54,13 +54,12 @@ class BiometricPromptPresenter {
 
     private fun displayBioEnableAlert(activity: FragmentActivity) {
         val biometricType =
-            BiometricUtility.loadStringValue(activity, TYPE_OF_BIO)
+            BiometricUtility.loadStringPreference(activity, TYPE_OF_BIO)
         BiometricUtility.storeBooleanPreference(
             activity,
             IS_BIO_ENROLLED,
             true
         )
-
         val alertDialog = DisplayAlert()
         alertDialog.displayTwoButtonDialog(
             activity,
