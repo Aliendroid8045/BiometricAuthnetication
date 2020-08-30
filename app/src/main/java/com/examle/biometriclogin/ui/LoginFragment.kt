@@ -39,11 +39,11 @@ class LoginFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         view.findViewById<Button>(R.id.btn_sign_in)
-            .setOnClickListener { listener.onClick("SignIn") }
+            .setOnClickListener { listener.onClick("signIn") }
         view.findViewById<Button>(R.id.btn_register_biometric)
-            .setOnClickListener { listener.onClick("RegisterBio") }
+            .setOnClickListener { listener.onClick("enrollBiometric") }
         view.findViewById<Button>(R.id.btn_disable_biometric)
-            .setOnClickListener { listener.onClick("DisableBio") }
+            .setOnClickListener { listener.onClick("disableBio") }
 
         return view
     }

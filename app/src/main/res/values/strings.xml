@@ -14,4 +14,8 @@
     <string name="logout">Logout</string>
     <string name="harware_not_support">Hardware is not available</string>
     <string name="phone_not_support_biometric">Your device does not have biometric support.</string>
+    <string name="not_now">Not now</string>
+    <string name="enable">Enable</string>
+    <string name="disable_bio_title">Disabled Biometric</string>
+    <string name="successfully_disable_bio">You have successfully disabled biometric. Please Enroll to sign in back.</string>
 </resources>

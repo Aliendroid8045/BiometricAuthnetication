@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     tools:context="com.examle.biometriclogin.ui.EnrollBiometricFragment">
 
     <ImageView
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="559dp"
-        android:src="@drawable/faceauth_successxxxhdpi"
+        tools:src="@drawable/faceauth_successxxxhdpi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +30,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp80"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:weightSum="1"
@@ -45,8 +46,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:text="Not now"
+            android:background="@drawable/button_state"
+            android:text="@string/not_now"
             android:textAllCaps="false" />
 
         <Button
@@ -55,8 +56,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:layout_weight="0.5"
-            android:background="@drawable/button_background"
-            android:text="Enable"
+            android:background="@drawable/button_state"
+            android:text="@string/enable"
             android:textAllCaps="false" />
 
 

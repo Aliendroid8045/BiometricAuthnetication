@@ -3,6 +3,7 @@ package com.examle.biometriclogin.utility
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import com.example.biometriclogin.R
 
 class DisplayAlert {
 
@@ -12,7 +13,7 @@ class DisplayAlert {
         dialogBuilder.setTitle(title)
         dialogBuilder.setMessage(message)
         dialogBuilder.setPositiveButton("OK", DialogInterface.OnClickListener(positiveButtonClick))
-        dialogBuilder.show()
+        dialogBuilder.show().window?.setBackgroundDrawableResource(R.drawable.button_background)
     }
 
     val positiveButtonClick = { dialog: DialogInterface, which: Int ->

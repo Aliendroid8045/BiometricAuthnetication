@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.examle.biometriclogin.communication.OnButtonSelection
 import com.examle.biometriclogin.utility.Constants.IS_BIO_ENROLLED
 import com.examle.biometriclogin.utility.Constants.TYPE_OF_BIO
 
 
 class BiometricPromptPresenter {
     private var mBiometricPrompt: BiometricPrompt? = null
+    private lateinit var listener: OnButtonSelection
 
 
     fun startAuth(
@@ -28,7 +30,10 @@ class BiometricPromptPresenter {
 
     private fun displayBiometricPrompt(activity: FragmentActivity) {
         Log.d("AUTH", "initializing prompt")
+
         val mExecutor = ContextCompat.getMainExecutor(activity)
+        if (activity is OnButtonSelection) listener = activity
+
         mBiometricPrompt =
             BiometricPrompt(activity, mExecutor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
@@ -40,6 +45,8 @@ class BiometricPromptPresenter {
                     super.onAuthenticationSucceeded(result)
                     Log.d("AUTH", "onAuthenticationSucceeded")
                     displayBioEnableAlert(activity)
+                    listener.onClick("registeredSuccessfully")
+
 
                 }
 

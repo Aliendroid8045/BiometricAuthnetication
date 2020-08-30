@@ -71,20 +71,20 @@ object BiometricUtility {
 
         if (context.packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
             storeBooleanPreference(context, FINGERPRINT_AVAILABLE, true)
-            storeStringPreference(context, TYPE_OF_BIO, "Fingerprint ")
+            storeStringPreference(context, TYPE_OF_BIO, "Fingerprint")
         }
     }
 
-     fun displayHardwareNotSupportError(context: Context) {
+    fun displayAlert(context: Context, title: Int, message: Int) {
         val alert = DisplayAlert()
         alert.displayTwoButtonDialog(
             context,
-            context.getString(R.string.harware_not_support),
-            context.getString(R.string.phone_not_support_biometric)
+            context.getString(title),
+            context.getString(message)
         )
     }
 
-     fun isBiometricHardwareAvailable(context: Context): Boolean {
+    fun isBiometricHardwareAvailable(context: Context): Boolean {
         val biometricManager = BiometricManager.from(context)
         when (biometricManager.canAuthenticate()) {
             BiometricManager.BIOMETRIC_SUCCESS -> return true

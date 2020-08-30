@@ -11,6 +11,7 @@ import android.widget.ImageView
 
 import com.example.biometriclogin.R
 import com.examle.biometriclogin.communication.OnButtonSelection
+import com.examle.biometriclogin.utility.BiometricUtility
 import com.examle.biometriclogin.utility.Constants.TYPE_OF_BIO
 
 class EnrollBiometricFragment : Fragment() {
@@ -43,10 +44,10 @@ class EnrollBiometricFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register_biometric, container, false)
 
         view.findViewById<Button>(R.id.btn_not_now)
-            .setOnClickListener { listener.onClick("NotNow") }
+            .setOnClickListener { listener.onClick("notNow") }
 
         view.findViewById<Button>(R.id.btn_enable_bio)
-            .setOnClickListener { listener.onClick("Enable") }
+            .setOnClickListener { listener.onClick("enable") }
 
         setBiometricImage(view)
 
@@ -54,11 +55,11 @@ class EnrollBiometricFragment : Fragment() {
     }
 
     private fun setBiometricImage(view: View) {
-        when (TYPE_OF_BIO) {
+        when (BiometricUtility.loadStringPreference(requireContext(), TYPE_OF_BIO)) {
             "Face recognition" -> view.findViewById<ImageView>(R.id.img_bio_type_on_enroll)
                 .setImageResource(R.drawable.faceauthxxxhdpi)
-            "Fingerprint " -> view.findViewById<ImageView>(R.id.img_bio_type_on_enroll)
-                .setImageResource(R.drawable.faceauthxxxhdpi)
+            "Fingerprint" -> view.findViewById<ImageView>(R.id.img_bio_type_on_enroll)
+                .setImageResource(R.drawable.fingerprintauthenticationhdpi)
         }
 
     }

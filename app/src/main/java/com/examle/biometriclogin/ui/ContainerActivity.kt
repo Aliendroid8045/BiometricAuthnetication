@@ -24,23 +24,25 @@ class ContainerActivity : AppCompatActivity(), OnButtonSelection {
 
     override fun onClick(tag: String) {
         when (tag) {
-            "SignIn" -> signIn()
-            "RegisterBio" -> registerBio()
-            "NotNow" -> notNow()
-            "Enable" -> enableBiometric()
-            "DisableBio" -> disableBio()
+            "signIn" -> signIn()
+            "enrollBiometric" -> enrollBiometric()
+            "notNow" -> notNow()
+            "enable" -> enableBiometric()
+            "disableBio" -> disableBio()
             "navigateHomeScreen" -> navigateUserToHomeScreen()
-            "logout" -> logoutUser()
+            "logout" -> presentSignInScreen()
+            "registeredSuccessfully" -> presentSignInScreen()
             else -> Throwable("No action found")
         }
     }
 
-    private fun logoutUser() {
+    private fun presentSignInScreen() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     private fun disableBio() {
         BiometricUtility.storeBooleanPreference(this, IS_BIO_ENROLLED, false)
+        BiometricUtility.displayAlert(this,R.string.disable_bio_title,R.string.successfully_disable_bio)
     }
 
     private fun enableBiometric() {
@@ -51,9 +53,13 @@ class ContainerActivity : AppCompatActivity(), OnButtonSelection {
         supportFragmentManager.popBackStack()
     }
 
-    private fun registerBio() {
+    private fun enrollBiometric() {
         if (!BiometricUtility.isBiometricHardwareAvailable(this)) {
-            BiometricUtility.displayHardwareNotSupportError(this)
+            BiometricUtility.displayAlert(
+                this,
+                R.string.harware_not_support,
+                R.string.phone_not_support_biometric
+            )
             return
         }
         setBiometricType(this)
@@ -61,9 +67,16 @@ class ContainerActivity : AppCompatActivity(), OnButtonSelection {
     }
 
     private fun signIn() {
+        if (!BiometricUtility.isBiometricHardwareAvailable(this)) {
+            BiometricUtility.displayAlert(
+                this,
+                R.string.harware_not_support,
+                R.string.phone_not_support_biometric
+            )
+            return
+        }
         if (BiometricUtility.loadBooleanPreference(this, IS_BIO_ENROLLED)) {
             displayPromptForAuthentication(this)
-            return
         } else {
             val bioType = BiometricUtility.loadStringPreference(this, TYPE_OF_BIO)
             val alert = DisplayAlert()
