@@ -1,5 +1,6 @@
 package com.examle.biometriclogin.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.examle.biometriclogin.utility.BiometricUtility.setBiometricType
 import com.examle.biometriclogin.utility.Constants.IS_BIO_ENROLLED
 import com.examle.biometriclogin.utility.Constants.TYPE_OF_BIO
 import com.examle.biometriclogin.utility.DisplayAlert
+import com.example.xfit.ui.MainActivity
 
 
 class ContainerActivity : AppCompatActivity(), OnButtonSelection {
@@ -89,7 +91,10 @@ class ContainerActivity : AppCompatActivity(), OnButtonSelection {
     }
 
     private fun navigateUserToHomeScreen() {
-        replaceFragment(HomeFragment.newInstance())
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+
+       // replaceFragment(HomeFragment.newInstance())
     }
 
     private fun addFragment(fragment: Fragment) {
